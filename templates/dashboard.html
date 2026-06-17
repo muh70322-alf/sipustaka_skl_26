@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    
+    <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+        <article class="rounded-3xl bg-white p-6 shadow-lg shadow-slate-200/60 border border-slate-200">
+            <div class="flex items-center justify-between text-slate-500 mb-4">
+                <p class="font-medium">Total Buku</p>
+                <span class="text-brand-600 material-icons-outlined">inventory</span>
+            </div>
+            <p class="text-3xl font-semibold text-slate-900">{{ total_buku }}</p>
+            <p class="mt-2 text-sm text-slate-500">Keseluruhan unit buku tersedia.</p>
+        </article>
+        
+        <article class="rounded-3xl bg-white p-6 shadow-lg shadow-slate-200/60 border border-slate-200">
+            <div class="flex items-center justify-between text-slate-500 mb-4">
+                <p class="font-medium">Total Judul</p>
+                <span class="text-brand-600 material-icons-outlined">collections_bookmark</span>
+            </div>
+            <p class="text-3xl font-semibold text-slate-900">{{ total_judul }}</p>
+            <p class="mt-2 text-sm text-slate-500">Jumlah koleksi judul buku.</p>
+        </article>
+        
+        <article class="rounded-3xl bg-white p-6 shadow-lg shadow-slate-200/60 border border-slate-200">
+            <div class="flex items-center justify-between text-slate-500 mb-4">
+                <p class="font-medium">Sedang Dipinjam</p>
+                <span class="text-brand-600 material-icons-outlined">hourglass_top</span>
+            </div>
+            <p class="text-3xl font-semibold text-slate-900">{{ sedang_dipinjam }}</p>
+            <p class="mt-2 text-sm text-slate-500">Transaksi peminjam aktif.</p>
+        </article>
+        
+        <article class="rounded-3xl bg-white p-6 shadow-lg shadow-slate-200/60 border border-slate-200">
+            <div class="flex items-center justify-between text-slate-500 mb-4">
+                <p class="font-medium">Sudah Dikembalikan</p>
+                <span class="text-brand-600 material-icons-outlined">check_circle</span>
+            </div>
+            <p class="text-3xl font-semibold text-slate-900">{{ sudah_dikembalikan }}</p>
+            <p class="mt-2 text-sm text-slate-500">Transaksi yang sudah selesai.</p>
+        </article>
+    </div>
+    
+    <div class="grid gap-5 md:grid-cols-2">
+        <!-- Analisis Stok -->
+        <div class="rounded-3xl bg-white p-6 shadow-lg shadow-slate-200/60 border border-slate-200">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="material-icons-outlined text-brand-600">bar_chart</span>
+                <h4 class="font-semibold text-slate-900">Analisis Stok</h4>
+            </div>
+            <p class="text-sm text-slate-500 mb-4">Distribusi Stok Buku</p>
+            <div class="space-y-4">
+                {% for buku in stok_buku %}
+                <div>
+                    <div class="flex justify-between text-sm mb-1">
+                        <span class="text-slate-700">{{ buku.judul }}</span>
+                        <span class="font-semibold text-slate-900">{{ buku.stok }}</span>
+                    </div>
+                    <div class="h-2 bg-slate-200 rounded-full overflow-hidden">
+                        <div class="h-full bg-brand-600 rounded-full" style="width: {{ buku.persen }}%;"></div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-slate-500 text-center py-4">Belum ada data buku</p>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Status Peminjaman -->
+        <div class="rounded-3xl bg-white p-6 shadow-lg shadow-slate-200/60 border border-slate-200">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="material-icons-outlined text-brand-600">pie_chart</span>
+                <h4 class="font-semibold text-slate-900">Status Peminjaman</h4>
+            </div>
+            <p class="text-sm text-slate-500 mb-4">Ringkasan Transaksi</p>
+            <div class="space-y-4">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+                        <span class="text-slate-700">Sedang Dipinjam</span>
+                    </div>
+                    <span class="text-2xl font-semibold text-slate-900">{{ sedang_dipinjam }}</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-2">
+                        <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                        <span class="text-slate-700">Sudah Dikembalikan</span>
+                    </div>
+                    <span class="text-2xl font-semibold text-slate-900">{{ sudah_dikembalikan }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

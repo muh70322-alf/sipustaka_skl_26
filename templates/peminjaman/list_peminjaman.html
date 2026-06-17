@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+    <div>
+        <p class="text-slate-500">Kelola data peminjaman buku.</p>
+        <h3 class="text-2xl font-semibold text-slate-900">Peminjaman</h3>
+    </div>
+    <a href="/peminjaman/tambah/" class="inline-flex items-center gap-2 rounded-2xl bg-brand-600 text-white px-5 py-3 shadow-lg shadow-brand-500/15 hover:bg-brand-700 transition">
+        <span class="material-icons-outlined">add</span>
+        Pinjam Buku
+    </a>
+</div>
+
+<!-- Tabel Peminjaman -->
+<div class="rounded-3xl bg-white shadow-lg shadow-slate-200/60 border border-slate-200 overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="min-w-full">
+            <thead>
+                <tr class="border-b border-slate-200 bg-slate-50">
+                    <th class="py-4 px-6 text-left text-sm font-semibold text-slate-600">ID</th>
+                    <th class="py-4 px-6 text-left text-sm font-semibold text-slate-600">Nama Peminjam</th>
+                    <th class="py-4 px-6 text-left text-sm font-semibold text-slate-600">Buku</th>
+                    <th class="py-4 px-6 text-left text-sm font-semibold text-slate-600">Tanggal Pinjam</th>
+                    <th class="py-4 px-6 text-left text-sm font-semibold text-slate-600">Jatuh Tempo</th>
+                    <th class="py-4 px-6 text-left text-sm font-semibold text-slate-600">Keperluan</th>
+                    <th class="py-4 px-6 text-left text-sm font-semibold text-slate-600">Petugas</th>
+                    <th class="py-4 px-6 text-center text-sm font-semibold text-slate-600">Status</th>
+                    <th class="py-4 px-6 text-center text-sm font-semibold text-slate-600">Aksi</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+                {% for p in peminjaman %}
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="py-4 px-6 text-sm text-slate-500">{{ p.id }}</td>
+                    <td class="py-4 px-6">
+                        <div>
+                            <p class="font-semibold text-slate-800">{{ p.nama }}</p>
+                            <p class="text-xs text-slate-400">{{ p.kelas }}</p>
+                        </div>
+                    </td>
+                    <td class="py-4 px-6">
+                        <p class="font-medium text-slate-700">{{ p.judul }}</p>
+                    </td>
+                    <td class="py-4 px-6 text-sm text-slate-600">{{ p.tanggal_pinjam }}</td>
+                    <td class="py-4 px-6 text-sm text-slate-600">{{ p.jatuh_tempo }}</td>
+                    <td class="py-4 px-6">
+                        <p class="text-sm text-slate-600">{{ p.keperluan }}</p>
+                        {% if p.catatan %}
+                        <p class="text-xs text-slate-400 mt-1">{{ p.catatan }}</p>
+                        {% endif %}
+                    </td>
+                    <td class="py-4 px-6 text-sm text-slate-600">{{ p.petugas|default:"Budi Siregar" }}</td>
+                    <td class="py-4 px-6 text-center">
+                        {% if p.status == 'Dipinjam' %}
+                        <span class="inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold bg-amber-100 text-amber-700">
+                            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                            Dipinjam
+                        </span>
+                        {% elif p.status == 'Dikembalikan' %}
+                        <span class="inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold bg-emerald-100 text-emerald-700">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            Dikembalikan
+                        </span>
+                        {% else %}
+                        <span class="inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold bg-rose-100 text-rose-700">
+                            <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                            Terlambat
+                        </span>
+                        {% endif %}
+                    </td>
+                    <td class="py-4 px-6 text-center">
+                        {% if p.status == 'Dipinjam' %}
+                        <a href="/peminjaman/kembalikan/{{ p.id }}/" 
+                           class="inline-flex items-center gap-1 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 text-xs font-medium transition shadow-sm"
+                           onclick="return confirm('Kembalikan buku {{ p.judul }}?')">
+                            <span class="material-icons-outlined text-sm">assignment_return</span>
+                            Kembalikan
+                        </a>
+                        {% else %}
+                        <span class="inline-flex items-center gap-1 rounded-xl bg-slate-100 text-slate-400 px-4 py-2 text-xs font-medium">
+                            <span class="material-icons-outlined text-sm">check_circle</span>
+                            Selesai
+                        </span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="9" class="py-12 text-center text-slate-500">
+                        <div class="flex flex-col items-center gap-3">
+                            <div class="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center">
+                                <span class="material-icons-outlined text-3xl text-slate-400">handshake</span>
+                            </div>
+                            <p>Belum ada data peminjaman</p>
+                            <a href="/peminjaman/tambah/" class="inline-flex items-center gap-2 rounded-2xl bg-brand-600 text-white px-4 py-2 text-sm hover:bg-brand-700 transition">
+                                <span class="material-icons-outlined text-sm">add</span>
+                                Pinjam Buku
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

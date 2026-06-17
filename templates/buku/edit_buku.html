@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="flex items-center gap-3 mb-6">
+    <a href="/buku/" class="text-slate-500 hover:text-slate-700 transition">
+        <span class="material-icons-outlined">arrow_back</span>
+    </a>
+    <div>
+        <p class="text-slate-500">Kelola data buku SIPUSTAKA.</p>
+        <h3 class="text-2xl font-semibold text-slate-900">Edit Buku</h3>
+    </div>
+</div>
+
+<div class="rounded-3xl bg-white p-6 shadow-lg shadow-slate-200/60 border border-slate-200 max-w-4xl">
+    <form method="post" class="space-y-5">
+        {% csrf_token %}
+        
+        <!-- Judul Buku -->
+        <div class="space-y-2">
+            <label class="block text-sm font-medium text-slate-700">
+                <span class="text-red-500 mr-1">*</span> Judul Buku
+            </label>
+            <input type="text" name="judul" value="{{ book.judul }}" 
+                   class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition" 
+                   required />
+            <p class="text-xs text-slate-400">Masukkan judul lengkap buku</p>
+        </div>
+        
+        <!-- Pengarang -->
+        <div class="space-y-2">
+            <label class="block text-sm font-medium text-slate-700">
+                <span class="text-red-500 mr-1">*</span> Pengarang
+            </label>
+            <input type="text" name="pengarang" value="{{ book.pengarang }}" 
+                   class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition" 
+                   required />
+            <p class="text-xs text-slate-400">Nama penulis buku</p>
+        </div>
+        
+        <!-- Grid 2 Kolom -->
+        <div class="grid gap-5 md:grid-cols-2">
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-slate-700">
+                    <span class="text-red-500 mr-1">*</span> Kategori
+                </label>
+                <select name="kategori" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition">
+                    <option value="Novel" {% if book.kategori == 'Novel' %}selected{% endif %}>Novel</option>
+                    <option value="Sejarah" {% if book.kategori == 'Sejarah' %}selected{% endif %}>Sejarah</option>
+                    <option value="Pendidikan" {% if book.kategori == 'Pendidikan' %}selected{% endif %}>Pendidikan</option>
+                    <option value="Fiksi" {% if book.kategori == 'Fiksi' %}selected{% endif %}>Fiksi</option>
+                    <option value="Fantasi" {% if book.kategori == 'Fantasi' %}selected{% endif %}>Fantasi</option>
+                    <option value="Pengembangan Diri" {% if book.kategori == 'Pengembangan Diri' %}selected{% endif %}>Pengembangan Diri</option>
+                </select>
+            </div>
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-slate-700">
+                    <span class="text-red-500 mr-1">*</span> Penerbit
+                </label>
+                <input type="text" name="penerbit" value="{{ book.penerbit }}" 
+                       class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition" 
+                       required />
+            </div>
+        </div>
+        
+        <!-- Grid 2 Kolom -->
+        <div class="grid gap-5 md:grid-cols-2">
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-slate-700">
+                    <span class="text-red-500 mr-1">*</span> Tahun Terbit
+                </label>
+                <input type="number" name="tahun_terbit" value="{{ book.tahun_terbit }}" 
+                       class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition" 
+                       placeholder="Contoh: 2005" required />
+            </div>
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-slate-700">
+                    <span class="text-red-500 mr-1">*</span> Rak / Lokasi
+                </label>
+                <select name="rak" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition">
+                    <option value="Rak A-01" {% if book.rak == 'Rak A-01' %}selected{% endif %}>Rak A-01</option>
+                    <option value="Rak A-02" {% if book.rak == 'Rak A-02' %}selected{% endif %}>Rak A-02</option>
+                    <option value="Rak A-03" {% if book.rak == 'Rak A-03' %}selected{% endif %}>Rak A-03</option>
+                    <option value="Rak A-04" {% if book.rak == 'Rak A-04' %}selected{% endif %}>Rak A-04</option>
+                    <option value="Rak A-05" {% if book.rak == 'Rak A-05' %}selected{% endif %}>Rak A-05</option>
+                    <option value="Rak B1" {% if book.rak == 'Rak B1' %}selected{% endif %}>Rak B1</option>
+                    <option value="Rak B2" {% if book.rak == 'Rak B2' %}selected{% endif %}>Rak B2</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Stok -->
+        <div class="space-y-2">
+            <label class="block text-sm font-medium text-slate-700">
+                <span class="text-red-500 mr-1">*</span> Stok
+            </label>
+            <input type="number" name="stok" value="{{ book.stok }}" 
+                   class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition" 
+                   min="0" required />
+            <p class="text-xs text-slate-400">Jumlah eksemplar yang tersedia</p>
+        </div>
+        
+        <!-- Deskripsi -->
+        <div class="space-y-2">
+            <label class="block text-sm font-medium text-slate-700">Deskripsi</label>
+            <textarea name="deskripsi" rows="4" 
+                      class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition resize-none"
+                      placeholder="Ceritakan sedikit tentang buku ini...">{{ book.deskripsi|default:'' }}</textarea>
+            <p class="text-xs text-slate-400">Sinopsis atau deskripsi singkat buku</p>
+        </div>
+        
+        <!-- Tombol Aksi -->
+        <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-200 mt-6">
+            <a href="/buku/" class="rounded-2xl border border-slate-300 px-6 py-3 text-slate-700 hover:bg-slate-100 transition inline-flex items-center gap-2">
+                <span class="material-icons-outlined text-sm">close</span>
+                Batal
+            </a>
+            <button type="submit" class="rounded-2xl bg-brand-600 px-6 py-3 text-white hover:bg-brand-700 transition inline-flex items-center gap-2 shadow-lg shadow-brand-500/25">
+                <span class="material-icons-outlined text-sm">save</span>
+                Perbarui Buku
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="flex items-center gap-3 mb-6">
+    <a href="/buku/" class="text-slate-500 hover:text-slate-700 transition">
+        <span class="material-icons-outlined">arrow_back</span>
+    </a>
+    <div>
+        <p class="text-slate-500">Kelola data buku SIPUSTAKA.</p>
+        <h3 class="text-2xl font-semibold text-slate-900">Tambah Buku</h3>
+    </div>
+</div>
+
+<div class="rounded-3xl bg-white p-6 shadow-lg shadow-slate-200/60 border border-slate-200 max-w-4xl">
+    <form method="post" class="space-y-5">
+        {% csrf_token %}
+        
+        <div class="space-y-2">
+            <label class="block text-sm font-medium text-slate-700">Judul Buku</label>
+            <input type="text" name="judul" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition" placeholder="Masukkan judul buku" required />
+        </div>
+        
+        <div class="space-y-2">
+            <label class="block text-sm font-medium text-slate-700">Pengarang</label>
+            <input type="text" name="pengarang" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition" placeholder="Masukkan nama pengarang" required />
+        </div>
+        
+        <div class="grid gap-5 md:grid-cols-2">
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-slate-700">Kategori</label>
+                <select name="kategori" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition">
+                    <option value="Novel">Novel</option>
+                    <option value="Sejarah">Sejarah</option>
+                    <option value="Pendidikan">Pendidikan</option>
+                    <option value="Fiksi">Fiksi</option>
+                    <option value="Fantasi">Fantasi</option>
+                    <option value="Pengembangan Diri">Pengembangan Diri</option>
+                </select>
+            </div>
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-slate-700">Penerbit</label>
+                <input type="text" name="penerbit" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition" placeholder="Masukkan nama penerbit" required />
+            </div>
+        </div>
+        
+        <div class="grid gap-5 md:grid-cols-2">
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-slate-700">Tahun Terbit</label>
+                <input type="number" name="tahun_terbit" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition" placeholder="Contoh: 2005" required />
+            </div>
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-slate-700">Rak / Lokasi</label>
+                <select name="rak" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition">
+                    <option value="Rak A-01">Rak A-01</option>
+                    <option value="Rak A-02">Rak A-02</option>
+                    <option value="Rak A-03">Rak A-03</option>
+                    <option value="Rak A-04">Rak A-04</option>
+                    <option value="Rak A-05">Rak A-05</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="space-y-2">
+            <label class="block text-sm font-medium text-slate-700">Stok</label>
+            <input type="number" name="stok" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition" placeholder="Jumlah stok" required />
+        </div>
+        
+        <div class="space-y-2">
+            <label class="block text-sm font-medium text-slate-700">Deskripsi</label>
+            <textarea name="deskripsi" rows="4" class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100 transition resize-none" placeholder="Ceritakan sedikit tentang buku ini..."></textarea>
+        </div>
+        
+        <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-200 mt-6">
+            <a href="/buku/" class="rounded-2xl border border-slate-300 px-6 py-3 text-slate-700 hover:bg-slate-100 transition inline-flex items-center gap-2">
+                <span class="material-icons-outlined text-sm">close</span>
+                Batal
+            </a>
+            <button type="submit" class="rounded-2xl bg-brand-600 px-6 py-3 text-white hover:bg-brand-700 transition inline-flex items-center gap-2 shadow-lg shadow-brand-500/25">
+                <span class="material-icons-outlined text-sm">save</span>
+                Simpan Buku
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

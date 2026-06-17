@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="flex items-center gap-3 mb-6">
+    <a href="/buku/" class="text-slate-500 hover:text-slate-700 transition">
+        <span class="material-icons-outlined">arrow_back</span>
+    </a>
+    <div>
+        <p class="text-slate-500">Informasi lengkap buku.</p>
+        <h3 class="text-2xl font-semibold text-slate-900">Detail Buku</h3>
+    </div>
+</div>
+
+<div class="rounded-3xl bg-white p-6 shadow-lg shadow-slate-200/60 border border-slate-200">
+    <div class="grid gap-6 md:grid-cols-2">
+        <!-- Kolom Kiri -->
+        <div class="space-y-4">
+            <div class="p-4 bg-slate-50 rounded-2xl">
+                <p class="text-xs text-slate-400 uppercase tracking-wide">ID Buku</p>
+                <p class="text-lg font-semibold text-slate-900 mt-1">{{ book.id }}</p>
+            </div>
+            <div class="p-4 bg-slate-50 rounded-2xl">
+                <p class="text-xs text-slate-400 uppercase tracking-wide">Judul Buku</p>
+                <p class="text-lg font-semibold text-slate-900 mt-1">{{ book.judul }}</p>
+            </div>
+            <div class="p-4 bg-slate-50 rounded-2xl">
+                <p class="text-xs text-slate-400 uppercase tracking-wide">Pengarang</p>
+                <p class="text-lg font-semibold text-slate-900 mt-1">{{ book.pengarang }}</p>
+            </div>
+            <div class="p-4 bg-slate-50 rounded-2xl">
+                <p class="text-xs text-slate-400 uppercase tracking-wide">Kategori</p>
+                <p class="mt-1">
+                    <span class="inline-flex rounded-full px-3 py-1 text-sm bg-blue-100 text-blue-700">{{ book.kategori }}</span>
+                </p>
+            </div>
+        </div>
+        
+        <!-- Kolom Kanan -->
+        <div class="space-y-4">
+            <div class="p-4 bg-slate-50 rounded-2xl">
+                <p class="text-xs text-slate-400 uppercase tracking-wide">Penerbit</p>
+                <p class="text-lg font-semibold text-slate-900 mt-1">{{ book.penerbit }}</p>
+            </div>
+            <div class="p-4 bg-slate-50 rounded-2xl">
+                <p class="text-xs text-slate-400 uppercase tracking-wide">Tahun Terbit</p>
+                <p class="text-lg font-semibold text-slate-900 mt-1">{{ book.tahun_terbit }}</p>
+            </div>
+            <div class="p-4 bg-slate-50 rounded-2xl">
+                <p class="text-xs text-slate-400 uppercase tracking-wide">Rak / Lokasi</p>
+                <p class="text-lg font-semibold text-slate-900 mt-1">{{ book.rak }}</p>
+            </div>
+            <div class="p-4 bg-slate-50 rounded-2xl">
+                <p class="text-xs text-slate-400 uppercase tracking-wide">Stok</p>
+                <p class="mt-1">
+                    <span class="inline-flex rounded-full px-3 py-1 text-sm {% if book.stok > 0 %}bg-emerald-100 text-emerald-700{% else %}bg-rose-100 text-rose-700{% endif %}">
+                        {{ book.stok }} unit
+                    </span>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Deskripsi Full Width -->
+    <div class="mt-6 p-4 bg-slate-50 rounded-2xl">
+        <p class="text-xs text-slate-400 uppercase tracking-wide">Deskripsi</p>
+        <p class="text-slate-700 mt-2">{{ book.deskripsi|default:"Tidak ada deskripsi" }}</p>
+    </div>
+    
+    <!-- Tombol Aksi -->
+    <div class="flex items-center justify-end gap-3 mt-6 pt-4 border-t border-slate-200">
+        <a href="/buku/" class="rounded-2xl border border-slate-300 px-5 py-3 text-slate-700 hover:bg-slate-100 transition inline-flex items-center gap-2">
+            <span class="material-icons-outlined text-sm">arrow_back</span>
+            Kembali
+        </a>
+        <a href="/buku/edit/{{ book.id }}/" class="rounded-2xl bg-amber-500 px-5 py-3 text-white hover:bg-amber-600 transition inline-flex items-center gap-2">
+            <span class="material-icons-outlined text-sm">edit</span>
+            Edit Buku
+        </a>
+    </div>
+</div>
+{% endblock %}

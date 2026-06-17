@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+    <div>
+        <p class="text-slate-500">Data siswa yang bisa meminjam buku.</p>
+        <h3 class="text-2xl font-semibold text-slate-900">User</h3>
+    </div>
+    <a href="/siswa/tambah/" class="inline-flex items-center gap-2 rounded-2xl bg-brand-600 text-white px-5 py-3 shadow-lg shadow-brand-500/15 hover:bg-brand-700 transition">
+        <span class="material-icons-outlined">person_add</span>
+        Tambah User
+    </a>
+</div>
+
+<div class="rounded-3xl bg-white shadow-lg shadow-slate-200/60 border border-slate-200 overflow-hidden">
+    <div class="overflow-x-auto">
+        <table class="min-w-full">
+            <thead>
+                <tr class="border-b border-slate-200 bg-slate-50">
+                    <th class="py-4 px-6 text-left text-sm font-semibold text-slate-600">ID</th>
+                    <th class="py-4 px-6 text-left text-sm font-semibold text-slate-600">Nama</th>
+                    <th class="py-4 px-6 text-left text-sm font-semibold text-slate-600">Kelas</th>
+                    <th class="py-4 px-6 text-left text-sm font-semibold text-slate-600">NIS</th>
+                    <th class="py-4 px-6 text-left text-sm font-semibold text-slate-600">Status</th>
+                    <th class="py-4 px-6 text-center text-sm font-semibold text-slate-600">Aksi</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+                {% for s in siswa %}
+                <tr class="hover:bg-slate-50 transition">
+                    <td class="py-4 px-6 text-sm font-medium text-slate-500">{{ forloop.counter }}</td>
+                    <td class="py-4 px-6">
+                        <div>
+                            <p class="font-semibold text-slate-800">{{ s.nama }}</p>
+                        </div>
+                    </td>
+                    <td class="py-4 px-6 text-sm text-slate-600">{{ s.kelas }}</td>
+                    <td class="py-4 px-6 text-sm text-slate-600">{{ s.nis }}</td>
+                    <td class="py-4 px-6">
+                        {% if s.is_active %}
+                        <span class="inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold bg-emerald-100 text-emerald-700">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            Aktif
+                        </span>
+                        {% else %}
+                        <span class="inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-semibold bg-slate-100 text-slate-500">
+                            <span class="w-2 h-2 rounded-full bg-slate-400"></span>
+                            Nonaktif
+                        </span>
+                        {% endif %}
+                    </td>
+                    <td class="py-4 px-6">
+                        <div class="flex gap-2 justify-center">
+                            <!-- Button Detail -->
+                            <a href="/siswa/detail/{{ s.id }}/" class="inline-flex items-center gap-1 rounded-xl bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 text-xs font-medium transition shadow-sm">
+                                <span class="material-icons-outlined text-sm">visibility</span>
+                                Detail
+                            </a>
+                            <!-- Button Edit -->
+                            <a href="/siswa/edit/{{ s.id }}/" class="inline-flex items-center gap-1 rounded-xl bg-amber-500 hover:bg-amber-600 text-white px-3 py-1.5 text-xs font-medium transition shadow-sm">
+                                <span class="material-icons-outlined text-sm">edit</span>
+                                Edit
+                            </a>
+                            <!-- Button Hapus -->
+                            <a href="/siswa/hapus/{{ s.id }}/" class="inline-flex items-center gap-1 rounded-xl bg-rose-500 hover:bg-rose-600 text-white px-3 py-1.5 text-xs font-medium transition shadow-sm">
+                                <span class="material-icons-outlined text-sm">delete</span>
+                                Hapus
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="py-12 text-center text-slate-500">
+                        <div class="flex flex-col items-center gap-3">
+                            <div class="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center">
+                                <span class="material-icons-outlined text-3xl text-slate-400">group</span>
+                            </div>
+                            <p>Belum ada data user</p>
+                            <a href="/siswa/tambah/" class="inline-flex items-center gap-2 rounded-2xl bg-brand-600 text-white px-4 py-2 text-sm hover:bg-brand-700 transition">
+                                <span class="material-icons-outlined text-sm">person_add</span>
+                                Tambah User
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
