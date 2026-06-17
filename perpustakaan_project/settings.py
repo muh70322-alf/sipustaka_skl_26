@@ -3,15 +3,12 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-8x!qq7%^)g^_c9w#t+v$+#7@*b&3kq$^8x!qq7%^)g^_c9w#t'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['muhammadirkhamfajri.pythonanywhere.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['muhammadirkhamfajri.pythonanywhere.com', 'localhost', '127.0.0.1']
 
-# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -55,15 +52,31 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'perpustakaan_project.wsgi.application'
 
-# DATABASE CONFIGURATION - PostgreSQL
-# Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/home/muhammadirkhamfajri/sipustaka_skl_26/db.sqlite3',
+# ⭐ INI BAGIAN YANG DIUBAH - DETEKSI OTOMATIS LOKAL VS PYTHONANYWHERE
+import sys
+
+# Deteksi apakah di PythonAnywhere atau lokal
+if 'pythonanywhere' in sys.executable:
+    # Di PythonAnywhere (Linux) - pakai SQLite
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': '/home/muhammadirkhamfajri/sipustaka_skl_26/db.sqlite3',
+        }
     }
-}
-# Password validation
+else:
+    # Di Lokal (Windows) - pakai PostgreSQL (biar data muncul)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'sipustaka',
+            'USER': 'postgres',
+            'PASSWORD': 'irkham',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -79,23 +92,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Internationalization
 LANGUAGE_CODE = 'id-id'
 TIME_ZONE = 'Asia/Jakarta'
 USE_I18N = True
 USE_TZ = True
 
-# Static files
-
-# ================================================
-# STATIC FILES (CSS, JavaScript, Images)
-# ================================================
-
-# STATIC FILES
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# MEDIA FILES
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
