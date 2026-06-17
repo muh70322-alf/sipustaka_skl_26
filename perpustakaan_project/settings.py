@@ -26,6 +26,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -90,25 +91,11 @@ USE_TZ = True
 # STATIC FILES (CSS, JavaScript, Images)
 # ================================================
 
-# URL untuk mengakses static files
+# STATIC FILES
 STATIC_URL = 'static/'
-
-
-# Folder tujuan saat collectstatic (untuk production)
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# ================================================
-# MEDIA FILES (Uploaded by users)
-# ================================================
-
-# URL untuk mengakses media files
+# MEDIA FILES
 MEDIA_URL = '/media/'
-
-# Folder penyimpanan media files
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# ================================================
-# DEFAULT PRIMARY KEY FIELD TYPE
-# ================================================
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
