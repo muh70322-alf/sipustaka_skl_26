@@ -7,9 +7,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-8x!qq7%^)g^_c9w#t+v$+#7@*b&3kq$^8x!qq7%^)g^_c9w#t'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['muhammadirkhamfajri.pythonanywhere.com', '127.0.0.1', 'localhost']
 
 # Application definition
 INSTALLED_APPS = [
@@ -55,17 +55,13 @@ TEMPLATES = [
 WSGI_APPLICATION = 'perpustakaan_project.wsgi.application'
 
 # DATABASE CONFIGURATION - PostgreSQL
+# Database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'sipustaka',        # Nama database yang sudah ada
-        'USER': 'postgres',
-        'PASSWORD': 'irkham',      # Ganti dengan password PostgreSQL Anda
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': '/home/muhammadirkhamfajri/sipustaka_skl_26/db.sqlite3',
     }
 }
-
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -89,9 +85,30 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files
+
+# ================================================
+# STATIC FILES (CSS, JavaScript, Images)
+# ================================================
+
+# URL untuk mengakses static files
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+
+# Folder tujuan saat collectstatic (untuk production)
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Default primary key field type
+# ================================================
+# MEDIA FILES (Uploaded by users)
+# ================================================
+
+# URL untuk mengakses media files
+MEDIA_URL = '/media/'
+
+# Folder penyimpanan media files
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# ================================================
+# DEFAULT PRIMARY KEY FIELD TYPE
+# ================================================
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
